@@ -35,3 +35,4 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
         # Docker registry password
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+          tags: latest
