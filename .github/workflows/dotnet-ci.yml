@@ -36,3 +36,4 @@ jobs:
         # Docker registry password
           password: ${{ secrets.DOCKERHUB_TOKEN }}
           tags: latest
+          dockerfile: SampleWebApp/SamplewebApp/Dockerfile
