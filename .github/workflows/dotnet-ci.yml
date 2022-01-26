@@ -24,12 +24,22 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
    
-#    - name: Docker Login
-#      uses: docker/login-action@v1.12.0
-#      with:
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
+    - name: Docker Login
+      uses: docker/login-action@v1.12.0
+      with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    -
+      name: Build and push
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        file: ./Dockerfile
+        push: true
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/myresumeapp:latest
 
 #    - name: Build and push Docker images
 #      uses: docker/build-push-action@v2.8.0
@@ -47,16 +57,16 @@ jobs:
  ##       push: true
   #      tags: ${{ steps.meta.outputs.tags }}
   #      labels: ${{ steps.meta.outputs.labels }}
-    - name: Build and push Docker image
-      uses: mr-smithers-excellent/docker-build-push@v5.6
-      with:
-        # Name of the Docker image
-          image: memikaqandolli/myresumeapp
+#    - name: Build and push Docker image
+#      uses: mr-smithers-excellent/docker-build-push@v5.6
+#      with:
+#        # Name of the Docker image
+#          image: memikaqandolli/myresumeapp
         # Target Docker registry
-          registry: docker.io
+#          registry: docker.io
         # Docker registry username
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
+#          username: ${{ secrets.DOCKERHUB_USERNAME }}
         # Docker registry password
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-          tags: latest
-          dockerfile: Dockerfile
+#          password: ${{ secrets.DOCKERHUB_TOKEN }}
+#          tags: latest
+#          dockerfile: Dockerfile
